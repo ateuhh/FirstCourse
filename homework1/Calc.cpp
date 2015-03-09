@@ -45,13 +45,13 @@ int main(){
 		m = 1;
 	}
 	i--;
-	if (m != 1 && i >0){						 // if a.length > 0 , then multiply and divide , next  add and subtract 
+	if (m == 0 && i >0){						 // if a.length > 0 , then multiply and divide , next  add and subtract 
 	int q = i;
 	int w = 0;
 	while ( w < i && m == 0){                    // this loop multiply and devide
 		if (b[w] == '*' || b[w] == '/' || b[w] =='%'){
 			if ((b[w]=='/' || b[w]=='%')&& (a[w+1])== 0){
-				m = 1;
+				m = 2;
 				continue;
 			}else{
                 if (b[w] == '*') a[w] *= a[w+1];
@@ -77,7 +77,8 @@ int main(){
 	}
 		if (i== 0) res = a[0];
 	    if(m == 0 ) cout<<res<<endl;
-        if(m == 1) cout<<"Wrong data"<<endl;
+        if(m == 1) cout<<"Wrong input format"<<endl;
+		if(m == 2) cout<<"Wrong operation"<<endl;
 }
 
 
