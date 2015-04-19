@@ -1,29 +1,27 @@
 #include "Settings.h"
 
 settings::settings(std::string const & filename) {
-	fname = filename;
+	file = filename;
 	reload();
 }
 
 void settings::set(std::string const & name, std::string const & value) {
-	CheckFile();
+	VerifyData();
 	Settings[name] = value;
-	settings::save();
+	settings::keep();
 }
 
-
 void settings::reset() {
-	CheckFile();
-	ofstream cout (fname);
+	VerifyData();
+	ofstream cout (file);
 	Settings.clear();
 	cout.close();
 }
 
-
 void settings::reload() {
-	CheckFile();
+	VerifyData();
 	Settings.clear();
-	ifstream cin (fname);
+	ifstream cin (file);
 	string set, value;
 	while (cin) {
 		getline(cin, set, ' ');
@@ -33,30 +31,32 @@ void settings::reload() {
 	cin.close();
 }
 
+
 std::string const & settings::get(std::string const & name, std::string const & def) const {
-	try {
+	if (Settings.count(name) != 0)
 		return Settings.at(name);
-	} catch(out_of_range) {
-		return def;
-	}
+	else 
+	        return def;
+	
 }
 
 
-void settings::save() {
-	CheckFile();
-	ofstream cout (fname);
-	map <string,string>::iterator temp;
-	for (temp = Settings.begin(); temp != Settings.end(); temp++) {
-		cout << (*temp).first << " " << (*temp).second << endl;
+void settings::keep() {
+	VerifyData();
+	ofstream cout (file);
+	map <string,string>::iterator keeper;
+	keeper = Settings.begin();
+	while ( keeper < Settings.end() ){
+		cout << (*keeper).first << " " << (*keeper).second << endl;
+		keeper++;
 	}
 	cout.close();
 }
 
 
-void settings::CheckFile() {
-	if (fname == "") {
-		fname = "def.cfg";
+
+void settings::VerifyData() {
+	if (file == "") {
+		file = "helpfile.txt";
 	}
 }
-
-
