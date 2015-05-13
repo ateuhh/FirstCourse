@@ -13,7 +13,7 @@ class settings {
     	void keep();          // this function keeps new settings
     	void VerifyData();    // this function verifys filename 
         std :: string file;
-        std :: map <std :: string,string > settings;
+        std :: map <std :: string, std :: string > Settings;
 
     public:
         // Main functions
