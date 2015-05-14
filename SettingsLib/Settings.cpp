@@ -1,4 +1,5 @@
 #include "Settings.h"
+using namespace std;
 
 settings::settings(std::string const & filename) {
 	file = filename;
@@ -13,7 +14,7 @@ void settings::set(std::string const & name, std::string const & value) {
 
 void settings::reset() {
 	VerifyData();
-	ofstream cout (file);
+	std::ofstream cout (file);
 	Settings.clear();
 	cout.close();
 }
@@ -21,7 +22,7 @@ void settings::reset() {
 void settings::reload() {
 	VerifyData();
 	Settings.clear();
-	ifstream cin (file);
+	std::ifstream cin (file);
 	string set, value;
 	while (cin) {
 		getline(cin, set, ' ');
@@ -43,8 +44,8 @@ std::string const & settings::get(std::string const & name, std::string const & 
 
 void settings::keep() {
 	VerifyData();
-	ofstream cout (file);
-	map <string,string>::iterator keeper;
+	std::ofstream cout (file);
+	map <std::string,std::string>::iterator keeper;
 	keeper = Settings.begin();
 	while ( keeper < Settings.end() ){
 		cout << (*keeper).first << " " << (*keeper).second << endl;
